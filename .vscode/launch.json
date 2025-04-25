@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:spm-mcp}",
+            "name": "Debug spm-mcp",
+            "program": "${workspaceFolder:spm-mcp}/.build/debug/spm-mcp",
+            "preLaunchTask": "swift: Build Debug spm-mcp"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:spm-mcp}",
+            "name": "Release spm-mcp",
+            "program": "${workspaceFolder:spm-mcp}/.build/release/spm-mcp",
+            "preLaunchTask": "swift: Build Release spm-mcp"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:spm-mcp}",
+            "name": "Debug spmcp",
+            "program": "${workspaceFolder:spm-mcp}/.build/debug/spmcp",
+            "preLaunchTask": "swift: Build Debug spmcp"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:spm-mcp}",
+            "name": "Release spmcp",
+            "program": "${workspaceFolder:spm-mcp}/.build/release/spmcp",
+            "preLaunchTask": "swift: Build Release spmcp"
+        }
+    ]
+}

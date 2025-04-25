@@ -1,0 +1,13 @@
+--swiftversion 6.1
+
+--indent 2
+--ifdef outdent
+--enable isEmpty
+--condassignment always
+--wraparguments before-first
+
+--enable wrapLoopBodies
+
+--disable wrapAttributes
+--disable unusedArguments
+--disable wrapMultilineStatementBraces
