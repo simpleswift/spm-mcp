@@ -13,6 +13,7 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-log", from: "1.0.0"),
     .package(url: "https://github.com/modelcontextprotocol/swift-sdk", from: "0.0.0"),
     .package(url: "https://github.com/swiftlang/swift-subprocess", branch: "main"),
+    .package(url: "https://github.com/ajevans99/swift-json-schema", from: "0.0.0"),
   ],
   targets: [
     .target(
@@ -21,6 +22,8 @@ let package = Package(
         .product(name: "Logging", package: "swift-log"),
         .product(name: "MCP", package: "swift-sdk"),
         .product(name: "Subprocess", package: "swift-subprocess"),
+        .product(name: "JSONSchema", package: "swift-json-schema"),
+        .product(name: "JSONSchemaBuilder", package: "swift-json-schema"),
       ],
       path: "Sources"
     ),

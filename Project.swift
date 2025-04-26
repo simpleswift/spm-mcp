@@ -3,6 +3,7 @@ import ProjectDescription
 let project = Project(
   name: "SPMCP",
   packages: [
+    .package(url: "https://github.com/ajevans99/swift-json-schema", from: "0.0.0"),
     .package(url: "https://github.com/modelcontextprotocol/swift-sdk", from: "0.0.0"),
     .package(url: "https://github.com/swiftlang/swift-subprocess", .branch("main")),
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
@@ -17,6 +18,8 @@ let project = Project(
       deploymentTargets: .macOS("14.0"),
       sources: ["Sources/**"],
       dependencies: [
+        .package(product: "JSONSchema", type: .runtime),
+        .package(product: "JSONSchemaBuilder", type: .runtime),
         .package(product: "MCP", type: .runtime),
         .package(product: "Subprocess", type: .runtime),
         .package(product: "Logging", type: .runtime),
