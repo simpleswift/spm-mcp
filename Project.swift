@@ -3,11 +3,13 @@ import ProjectDescription
 let project = Project(
   name: "SPMCP",
   packages: [
-    .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
     .package(url: "https://github.com/apple/swift-log", from: "1.0.0"),
+    .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
     .package(url: "https://github.com/swiftlang/swift-subprocess", .branch("main")),
     .package(url: "https://github.com/KeithBird/swift-sdk", .branch("main")),
     .package(url: "https://github.com/ajevans99/swift-json-schema", from: "0.0.0"),
+    .package(url: "https://github.com/swift-server/swift-service-lifecycle", from: "2.0.0"),
+    .package(url: "https://github.com/apple/swift-async-algorithms", from: "1.0.0"),
   ],
   targets: [
     .target(
@@ -29,13 +31,15 @@ let project = Project(
       name: "spmcp",
       destinations: .macOS,
       product: .commandLineTool,
-      bundleId: "com.KeithBird.SPMCP.smcp",
+      bundleId: "com.KeithBird.SPMCP.spmcp",
       deploymentTargets: .macOS("14.0"),
       sources: ["SPMCP/Commands/**"],
       dependencies: [
         .target(name: "MCPModel"),
-        .package(product: "ArgumentParser", type: .runtime),
         .package(product: "Logging", type: .runtime),
+        .package(product: "ArgumentParser", type: .runtime),
+        .package(product: "ServiceLifecycle", type: .runtime),
+        .package(product: "AsyncAlgorithms", type: .runtime),
       ]
     ),
     .target(

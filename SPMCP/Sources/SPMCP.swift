@@ -18,9 +18,14 @@ public enum SPMCP {
             logging: .init(),
             prompts: .init(),
             resources: .init(),
-            tools: .init(),
+            tools: .init()
         )
     )
+}
+
+struct EmptyNoti: MCP.Notification {
+    typealias Parameters = String
+    static var name: String { "Empty" }
 }
 
 public extension SPMCP {
@@ -36,9 +41,19 @@ public extension SPMCP {
             try await runInCLI(arguments: ["--version"])
         }
 
-        let toolBox: ToolBox = .init(tools: (tool))
+        let toolBox: ToolBox = .init(tools: tool)
         await server.withTools(toolBox)
 
+        await server.withMethodHandler(ListPrompts.self) { result in
+            .init(prompts: [])
+        }
+
+        await server.withMethodHandler(ListResources.self) { result in
+            .init(resources: [])
+        }
+    }
+
+    static func stop() async {
         await server.stop()
     }
 }
