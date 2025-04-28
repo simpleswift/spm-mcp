@@ -6,7 +6,6 @@ import ServiceLifecycle
 
 actor MCPServer: Service {
     func run() async throws {
-        try await SPMCP.run()
         for await _ in AsyncTimerSequence(
             interval: .seconds(60), clock: .continuous
         ) {
@@ -25,6 +24,7 @@ struct MCPCommand: AsyncParsableCommand {
             gracefulShutdownSignals: [.sigterm, .sigint],
             logger: Logger(label: "MCPCommand")
         )
+        try await SPMCP.run()
         try await group.run()
     }
 }
