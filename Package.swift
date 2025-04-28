@@ -11,8 +11,8 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
     .package(url: "https://github.com/apple/swift-log", from: "1.0.0"),
-    .package(url: "https://github.com/modelcontextprotocol/swift-sdk", from: "0.0.0"),
     .package(url: "https://github.com/swiftlang/swift-subprocess", branch: "main"),
+    .package(url: "https://github.com/KeithBird/swift-sdk", branch: "main"),
     .package(url: "https://github.com/ajevans99/swift-json-schema", from: "0.0.0"),
   ],
   targets: [
@@ -20,21 +20,30 @@ let package = Package(
       name: "MCPModel",
       dependencies: [
         .product(name: "Logging", package: "swift-log"),
-        .product(name: "MCP", package: "swift-sdk"),
         .product(name: "Subprocess", package: "swift-subprocess"),
+        .product(name: "MCP", package: "swift-sdk"),
         .product(name: "JSONSchema", package: "swift-json-schema"),
         .product(name: "JSONSchemaBuilder", package: "swift-json-schema"),
       ],
-      path: "Sources"
+      path: "SPMCP/Sources"
     ),
     .executableTarget(
       name: "spmcp",
       dependencies: [
         .target(name: "MCPModel"),
-        .product(name: "Logging", package: "swift-log"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
+        .product(name: "Logging", package: "swift-log"),
       ],
-      path: "Commands"
+      path: "SPMCP/Commands"
+    ),
+    .testTarget(
+      name: "SPMCPTests",
+      dependencies: [
+        .target(name: "MCPModel"),
+        .product(name: "MCP", package: "swift-sdk"),
+        .product(name: "Logging", package: "swift-log"),
+      ],
+      path: "SPMCP/Tests"
     ),
   ]
 )
