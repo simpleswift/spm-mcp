@@ -1,16 +1,28 @@
-import Foundation
-import JSONSchema
 import JSONSchemaBuilder
 import Logging
 import MCP
-import SchemaMCP
 import Subprocess
 import System
+
+public extension SPMCP {
+    static func run() async throws {
+        let transport = StdioTransport()
+        try await server.start(transport: transport)
+
+        await registerTools()
+        await registerPrompts()
+        await registerResources()
+
+        await server.waitUntilCompleted()
+        await server.stop()
+        await transport.disconnect()
+    }
+}
 
 public enum SPMCP {
     static let server = Server(
         name: "SPMCP",
-        version: "1.0.0",
+        version: "0.1.0",
         capabilities: .init(
             logging: .init(),
             prompts: .init(),
@@ -20,35 +32,8 @@ public enum SPMCP {
     )
 }
 
-struct EmptyNoti: MCP.Notification {
-    typealias Parameters = String
-    static var name: String { "Empty" }
-}
-
-public extension SPMCP {
-    static func run() async throws {
-        let transport = StdioTransport()
-        try await server.start(transport: transport)
-
-        let toolBox: ToolBox = .init(tools: basicTool)
-        await server.withTools(toolBox)
-
-        await server.withMethodHandler(ListPrompts.self) { result in
-            .init(prompts: [])
-        }
-
-        await server.withMethodHandler(ListResources.self) { result in
-            .init(resources: [])
-        }
-    }
-
-    static func stop() async {
-        await server.stop()
-    }
-}
-
 @Schemable
-struct VoidInput {}
+struct VoidInput: Sendable {}
 
 extension SPMCP {
     enum CLIOutput {
@@ -56,10 +41,13 @@ extension SPMCP {
         case error(String)
     }
 
-    static func runInCLI(arguments: Arguments) async throws -> CallTool.Result {
+    static func runSwiftCmd(
+        args: [String], at path: String? = nil
+    ) async throws -> CallTool.Result {
         let result = try await Subprocess.run(
             .name("swift"),
-            arguments: arguments,
+            arguments: .init(args),
+            workingDirectory: path.map { .init($0) },
             error: .string
         )
 
