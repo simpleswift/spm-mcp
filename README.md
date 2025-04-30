@@ -1,4 +1,4 @@
-# SMPMCP
+# SPM-MCP
 
 A Model Context Protocol (MCP) server that provides automation capabilities using Swift Package Manager (SPM).
 
@@ -11,12 +11,7 @@ A Model Context Protocol (MCP) server that provides automation capabilities usin
   "mcpServers": {
     "spm": {
       "command": "mise",
-      "args": [
-        "x",
-        "ubi:simple-swift/spm-mcp@latest",
-        "--",
-        "spmcp"
-      ],
+      "args": ["x", "ubi:simpleswift/spm-mcp@latest", "--", "spm-mcp"]
     }
   }
 }
